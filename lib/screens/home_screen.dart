@@ -3,9 +3,11 @@ import 'package:uni/models/app_model.dart';
 import 'package:uni/screens/summary_screen.dart';
 import 'package:uni/services/app_service.dart';
 import 'package:uni/widgets/app_list_item.dart';
+import '../languages/app_localizations.dart';
 
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -95,9 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Uni App - Ana Ekran'),
+        title: Text(localizations.translate('appName')),
         actions: [
           IconButton(
             icon: Icon(Icons.delete),
@@ -113,15 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 'name',
-                child: Text('Ada Göre Sırala'),
+                child: Text(localizations.translate('sortByName')),
               ),
               PopupMenuItem(
                 value: 'size',
-                child: Text('Boyuta Göre Sırala'),
+                child: Text(localizations.translate('sortBySize')),
               ),
               PopupMenuItem(
                 value: 'lastUsed',
-                child: Text('Son Kullanım Tarihine Göre Sırala'),
+                child: Text(localizations.translate('sortByLastUsed')),
               ),
             ],
           ),
@@ -144,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Uygulama Ara',
+                hintText: localizations.translate('searchApps'),
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),

@@ -4,7 +4,14 @@
   "settings": "Settings",
   "language": "Language",
   "theme": "Theme",
+  "sortByName": "Sort by Name",
+  "sortBySize": "Sort by Size",
+  "sortByLastUsed": "Sort by Last Used",
+  "searchApps": "Search Apps",
   "uninstallCount": "%d apps uninstalled",
   "failedUninstalls": "Failed to uninstall: %s",
-  "start": "Start"
+  "start": "Start",
+  "uninstallApps": "Uninstall Apps",
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 } 
