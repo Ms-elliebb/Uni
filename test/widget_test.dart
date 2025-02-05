@@ -5,53 +5,60 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uni/languages/language_service.dart';
 import 'package:uni/screens/onboarding_screen.dart';
 import 'package:uni/main.dart';
+import 'dart:typed_data';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   
-  testWidgets('Language selector shows all supported languages', (WidgetTester tester) async {
-    SharedPreferences.setMockInitialValues({});
-    final prefs = await SharedPreferences.getInstance();
-    
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => LanguageService(prefs)),
-        ],
-        child: MaterialApp(
-          localizationsDelegates: [
-            AppLocalizationsDelegate(),
-            DefaultMaterialLocalizations.delegate,
-            DefaultWidgetsLocalizations.delegate,
+  group('Language Tests', () {
+    late SharedPreferences prefs;
+    late LanguageService languageService;
+
+    setUp(() async {
+      SharedPreferences.setMockInitialValues({});
+      prefs = await SharedPreferences.getInstance();
+      languageService = LanguageService(prefs);
+    });
+
+    testWidgets('Shows all supported languages', (WidgetTester tester) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMessageHandler('flutter/assets', (ByteData? message) async {
+        return ByteData.sublistView(Uint8List.fromList('{"appName":"Uni App","start":"Start"}'.codeUnits));
+      });
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(value: languageService),
           ],
-          supportedLocales: [
-            Locale('en'),
-            Locale('fr'),
-            Locale('de'),
-            Locale('it'),
-            Locale('es'),
-            Locale('zh'),
-            Locale('ja'),
-          ],
-          home: OnboardingScreen(),
+          child: MaterialApp(
+            localizationsDelegates: [
+              AppLocalizationsDelegate(),
+              DefaultMaterialLocalizations.delegate,
+              DefaultWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), Locale('fr'), Locale('de'),
+              Locale('it'), Locale('es'), Locale('zh'), Locale('ja'),
+            ],
+            home: const OnboardingScreen(),
+          ),
         ),
-      ),
-    );
+      );
 
-    // Dil seçici menüyü açmak için PopupMenuButton'ı bul
-    final languageButton = find.byType(PopupMenuButton<String>);
-    expect(languageButton, findsOneWidget);
-    
-    await tester.tap(languageButton);
-    await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
 
-    // Dil seçeneklerini kontrol et
-    expect(find.text('English'), findsOneWidget);
-    expect(find.text('Français'), findsOneWidget);
-    expect(find.text('Deutsch'), findsOneWidget);
-    expect(find.text('Italiano'), findsOneWidget);
-    expect(find.text('Español'), findsOneWidget);
-    expect(find.text('中文'), findsOneWidget);
-    expect(find.text('日本語'), findsOneWidget);
+      // Tüm dil seçeneklerini kontrol et
+      final languages = ['English', 'Français', 'Deutsch', 'Italiano', 'Español', '中文', '日本語'];
+      for (var language in languages) {
+        expect(find.text(language), findsOneWidget);
+      }
+    });
+
+    testWidgets('Changes language when selected', (WidgetTester tester) async {
+      // Dil değişikliği testi eklenecek
+    });
   });
 } 
