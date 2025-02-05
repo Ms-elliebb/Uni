@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uni/languages/language_service.dart';
 import 'package:uni/screens/onboarding_screen.dart';
+import 'package:uni/main.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +19,33 @@ void main() {
           ChangeNotifierProvider(create: (_) => LanguageService(prefs)),
         ],
         child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizationsDelegate(),
+            DefaultMaterialLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en'),
+            Locale('fr'),
+            Locale('de'),
+            Locale('it'),
+            Locale('es'),
+            Locale('zh'),
+            Locale('ja'),
+          ],
           home: OnboardingScreen(),
         ),
       ),
     );
 
-    await tester.tap(find.byIcon(Icons.language));
+    // Dil seçici menüyü açmak için PopupMenuButton'ı bul
+    final languageButton = find.byType(PopupMenuButton<String>);
+    expect(languageButton, findsOneWidget);
+    
+    await tester.tap(languageButton);
     await tester.pumpAndSettle();
 
+    // Dil seçeneklerini kontrol et
     expect(find.text('English'), findsOneWidget);
     expect(find.text('Français'), findsOneWidget);
     expect(find.text('Deutsch'), findsOneWidget);
