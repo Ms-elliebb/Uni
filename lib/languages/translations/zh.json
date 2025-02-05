@@ -1,0 +1,17 @@
+{
+  "appName": "Uni App",
+  "welcome": "欢迎",
+  "settings": "设置",
+  "language": "语言",
+  "theme": "主题",
+  "sortByName": "按名称排序",
+  "sortBySize": "按大小排序",
+  "sortByLastUsed": "按最后使用时间排序",
+  "searchApps": "搜索应用",
+  "uninstallCount": "已卸载 %d 个应用",
+  "failedUninstalls": "卸载失败：%s",
+  "start": "开始",
+  "uninstallApps": "卸载应用",
+  "cancel": "取消",
+  "confirm": "确认"
+}

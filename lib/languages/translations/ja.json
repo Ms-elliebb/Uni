@@ -1,0 +1,17 @@
+{
+  "appName": "Uni App",
+  "welcome": "ようこそ",
+  "settings": "設定",
+  "language": "言語",
+  "theme": "テーマ",
+  "sortByName": "名前で並べ替え",
+  "sortBySize": "サイズで並べ替え",
+  "sortByLastUsed": "最終使用日で並べ替え",
+  "searchApps": "アプリを検索",
+  "uninstallCount": "%d個のアプリをアンインストールしました",
+  "failedUninstalls": "アンインストール失敗：%s",
+  "start": "開始",
+  "uninstallApps": "アプリをアンインストール",
+  "cancel": "キャンセル",
+  "confirm": "確認"
+}
