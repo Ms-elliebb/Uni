@@ -1,0 +1,64 @@
+# Çoklu Dil Desteği Eklenmesi İçin Task Listesi
+
+## 1. Proje Yapısı Hazırlığı
+- [ ] lib/languages klasörü oluştur
+- [ ] her dil için ayrı JSON dosyası oluştur (en.json, fr.json, de.json, it.json, es.json, zh.json, ja.json)
+- [ ] dil dosyalarını yönetecek bir servis sınıfı oluştur (LanguageService)
+
+## 2. Dil Dosyalarının Oluşturulması
+- [ ] Her dil için aşağıdaki yapıda JSON dosyaları oluştur:
+  {
+    "appName": "Uni App",
+    "welcome": "Hoş Geldiniz",
+    "settings": "Ayarlar",
+    "language": "Dil",
+    "theme": "Tema"
+  }
+- [ ] Tüm metinleri profesyonel çeviri hizmetiyle çevir
+
+## 3. Dil Servisi Geliştirme
+- [ ] Kullanıcının seçtiği dili SharedPreferences'te sakla
+- [ ] Uygulama başlangıcında kayıtlı dili yükle
+- [ ] Dil değişikliğinde tüm uygulamayı yeniden yükle
+- [ ] Varsayılan dil olarak İngilizce'yi ayarla
+
+## 4. Kullanıcı Arayüzü Güncellemeleri
+- [ ] Ayarlar ekranına dil seçimi ekle
+- [ ] Dil değiştirme butonu ekle
+- [ ] Tüm metinleri dil servisi üzerinden çek
+
+## 5. Test ve Doğrulama
+- [ ] Her dil için UI testleri yaz
+- [ ] Uzun metinlerin UI'da düzgün görüntülendiğini kontrol et
+- [ ] RTL diller için (Arapça gibi) özel düzenlemeler yap
+
+## 6. Optimizasyonlar
+- [ ] Dil dosyalarını lazy loading ile yükle
+- [ ] Kullanılmayan metinleri temizle
+- [ ] Dil dosyalarını sıkıştır
+
+## 7. Dokümantasyon
+- [ ] Dil ekleme rehberi oluştur
+- [ ] Çeviri süreçlerini dokümante et
+- [ ] Katkıda bulunmak isteyenler için rehber hazırla
+
+## 8. Sürekli İyileştirme
+- [ ] Kullanıcı feedback'lerine göre çevirileri güncelle
+- [ ] Yeni diller ekleme kolaylığı sağla
+- [ ] Otomatik çeviri araçları entegre et
+
+## 9. Yayın Süreci
+- [ ] Dil dosyalarını sürüm kontrolüne ekle
+- [ ] Çevirileri güncelleme mekanizması oluştur
+- [ ] Uygulama marketlerinde çoklu dil desteğini belirt
+
+## 10. Performans İzleme
+- [ ] Dil yükleme sürelerini ölç
+- [ ] Bellek kullanımını izle
+- [ ] Dil değiştirme işlemlerini optimize et
+
+## Ek Notlar:
+- L10n ve i18n standartlarını takip et
+- Flutter'ın yerleşik dil desteğini kullan
+- Dinamik metinler için placeholder desteği ekle
+- Çeviriler için context sağla 
