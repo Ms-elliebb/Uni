@@ -1,0 +1,17 @@
+{
+  "appName": "Uni App",
+  "welcome": "Bienvenue",
+  "settings": "Paramètres",
+  "language": "Langue",
+  "theme": "Thème",
+  "sortByName": "Trier par nom",
+  "sortBySize": "Trier par taille",
+  "sortByLastUsed": "Trier par dernière utilisation",
+  "searchApps": "Rechercher des applications",
+  "uninstallCount": "%d applications désinstallées",
+  "failedUninstalls": "Échec de la désinstallation: %s",
+  "start": "Commencer",
+  "uninstallApps": "Désinstaller les applications",
+  "cancel": "Annuler",
+  "confirm": "Confirmer"
+}
