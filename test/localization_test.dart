@@ -4,22 +4,29 @@ import 'package:uni/languages/app_localizations.dart';
 
 void main() {
   group('AppLocalizations Tests', () {
-    testWidgets('loads and translates strings correctly', (WidgetTester tester) async {
-      final localizations = AppLocalizations(const Locale('en'));
-      await localizations.load();
+    late AppLocalizations localizations;
 
-      expect(localizations.translate('welcome'), 'Welcome');
-      expect(localizations.translate('settings'), 'Settings');
-      expect(
-        localizations.translate('uninstallCount', [5]),
-        '5 apps uninstalled',
-      );
+    setUp(() async {
+      localizations = AppLocalizations(const Locale('en'));
+      await localizations.load();
     });
 
-    testWidgets('handles missing translations gracefully', (WidgetTester tester) async {
-      final localizations = AppLocalizations(const Locale('en'));
-      await localizations.load();
+    test('loads basic translations correctly', () {
+      expect(localizations.translate('welcome'), 'Welcome');
+      expect(localizations.translate('settings'), 'Settings');
+    });
 
+    test('handles numeric placeholders correctly', () {
+      final result = localizations.translate('uninstallCount', [5]);
+      expect(result, '5 apps uninstalled');
+    });
+
+    test('handles string placeholders correctly', () {
+      final result = localizations.translate('failedUninstalls', ['App1, App2']);
+      expect(result, 'Failed to uninstall: App1, App2');
+    });
+
+    test('handles missing translations gracefully', () {
       expect(localizations.translate('nonexistent_key'), 'nonexistent_key');
     });
   });

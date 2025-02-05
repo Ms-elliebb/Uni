@@ -22,9 +22,13 @@ class AppLocalizations {
   String translate(String key, [List<dynamic>? args]) {
     String translation = _localizedStrings[key] ?? key;
     if (args != null) {
-      args.forEach((arg) {
-        translation = translation.replaceFirst('%s', arg.toString());
-      });
+      for (var i = 0; i < args.length; i++) {
+        if (translation.contains('%d')) {
+          translation = translation.replaceFirst('%d', args[i].toString());
+        } else if (translation.contains('%s')) {
+          translation = translation.replaceFirst('%s', args[i].toString());
+        }
+      }
     }
     return translation;
   }
