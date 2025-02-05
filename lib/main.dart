@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             Locale('zh'),
             Locale('ja'),
           ],
-          localizationsDelegates: [
+          localizationsDelegates:const  [
             AppLocalizationsDelegate(),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -55,19 +55,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-  @override
-  bool isSupported(Locale locale) {
-    return ['en', 'fr', 'de', 'it', 'es', 'zh', 'ja'].contains(locale.languageCode);
-  }
-
-  @override
-  Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = AppLocalizations(locale);
-    await localizations.load();
-    return localizations;
-  }
-
-  @override
-  bool shouldReload(AppLocalizationsDelegate old) => false;
-}
