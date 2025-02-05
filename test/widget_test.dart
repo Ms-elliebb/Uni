@@ -21,29 +21,26 @@ void main() {
       prefs = await SharedPreferences.getInstance();
       languageService = LanguageService(prefs);
 
-      // Mock veri yönetimini iyileştir
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMessageHandler('flutter/assets', (ByteData? message) async {
+      // Tek bir mock handler tanımla
+      Future<ByteData?> mockHandler(ByteData? message) async {
         if (message != null) {
-          final String assetPath = utf8.decode(message.buffer.asUint8List());
-          debugPrint('Test için dil dosyası yükleniyor: $assetPath');
-          
-          if (assetPath.contains('lib/languages/translations/assets/lang/')) {
-            final mockData = {
-              'appName': 'Uni App',
-              'start': 'Start',
-              'welcome': 'Welcome',
-              'settings': 'Settings',
-              'language': 'Language',
-              'theme': 'Theme',
-              'uninstallCount': '%d apps uninstalled',
-              'failedUninstalls': 'Failed to uninstall: %s'
-            };
-            return ByteData.sublistView(Uint8List.fromList(utf8.encode(json.encode(mockData))));
-          }
+          final mockData = {
+            'appName': 'Uni App',
+            'start': 'Start',
+            'welcome': 'Welcome',
+            'settings': 'Settings',
+            'language': 'Language',
+            'theme': 'Theme',
+            'uninstallCount': '%d apps uninstalled',
+            'failedUninstalls': 'Failed to uninstall: %s'
+          };
+          return ByteData.sublistView(Uint8List.fromList(utf8.encode(json.encode(mockData))));
         }
         return null;
-      });
+      }
+
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMessageHandler('flutter/assets', mockHandler);
     });
 
     testWidgets('Shows all supported languages', (WidgetTester tester) async {
@@ -95,15 +92,22 @@ void main() {
             supportedLocales: const [Locale('en')],
             locale: const Locale('en'),
             home: Builder(
-              builder: (context) => Scaffold(
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(AppLocalizations.of(context).translate('start')),
-                    Text(AppLocalizations.of(context).translate('welcome')),
-                  ],
-                ),
-              ),
+              builder: (context) {
+                // Yükleme durumunu kontrol et
+                final localizations = AppLocalizations.of(context);
+                if (!localizations.isLoaded) {
+                  return const CircularProgressIndicator();
+                }
+                return Scaffold(
+                  body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(localizations.translate('start')),
+                      Text(localizations.translate('welcome')),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ),
