@@ -13,10 +13,15 @@ class AppLocalizations {
   }
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString(
-        'lib/languages/translations/${locale.languageCode}.json');
-    _localizedStrings = json.decode(jsonString);
-    return true;
+    try {
+      String jsonString = await rootBundle.loadString(
+          'lib/languages/translations/${locale.languageCode}.json');
+      _localizedStrings = json.decode(jsonString);
+      return true;
+    } catch (e) {
+      _localizedStrings = {};
+      return false;
+    }
   }
 
   String translate(String key, [List<dynamic>? args]) {
