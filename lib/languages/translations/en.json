@@ -1,0 +1,10 @@
+{
+  "appName": "Uni App",
+  "welcome": "Welcome",
+  "settings": "Settings",
+  "language": "Language",
+  "theme": "Theme",
+  "uninstallCount": "%d apps uninstalled",
+  "failedUninstalls": "Failed to uninstall: %s",
+  "start": "Start"
+} 
