@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Ana renkler
-  static const Color primaryColor = Color(0xFF6C63FF);
-  static const Color secondaryColor = Color(0xFFFF6584);
-  static const Color accentColor = Color(0xFF00BFA6);
-  
+  static const Color primaryColor = Color(0xFF90CAF9);   // Açık Mavi
+  static const Color secondaryColor = Color(0xFFF48FB1); // Pembe
+  static const Color accentColor = Color(0xFF80CBC4);    // Deniz Yeşili
+  static const Color lightTextColor = Color(0xFF616161); // Açık Gri
+  static const Color darkTextColor = Color(0xFF212121);  // Koyu Gri
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
@@ -14,6 +16,7 @@ class AppTheme {
       tertiary: accentColor,
       brightness: Brightness.light,
     ),
+    scaffoldBackgroundColor: Colors.grey[50], // Açık Gri Arka Plan
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,
@@ -22,11 +25,11 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
+        backgroundColor: secondaryColor,
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(20), // Daha Yuvarlak Butonlar
         ),
         elevation: 4,
       ),
@@ -34,7 +37,7 @@ class AppTheme {
     cardTheme: CardTheme(
       elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20), // Daha Yuvarlak Kartlar
       ),
       color: Colors.white,
       shadowColor: primaryColor.withOpacity(0.2),
@@ -50,8 +53,14 @@ class AppTheme {
         }
         return Colors.grey;
       }),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
+    ),
+    textTheme: TextTheme(
+      titleLarge: TextStyle(
+        color: darkTextColor, // Koyu Gri Başlıklar
+        fontWeight: FontWeight.bold,
+      ),
+      bodyMedium: TextStyle(
+        color: lightTextColor, // Açık Gri Metinler
       ),
     ),
   );

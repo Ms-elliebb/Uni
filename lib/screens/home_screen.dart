@@ -4,6 +4,7 @@ import 'package:uni/screens/summary_screen.dart';
 import 'package:uni/services/app_service.dart';
 import 'package:uni/widgets/app_list_item.dart';
 import '../languages/app_localizations.dart';
+import 'package:uni/theme/app_theme.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -136,26 +137,22 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 8,
-                  offset: Offset(0, 2),
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
                 ),
               ],
             ),
             child: TextField(
               decoration: InputDecoration(
                 hintText: localizations.translate('searchApps'),
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.transparent,
+                prefixIcon: Icon(Icons.search, color: AppTheme.lightTextColor),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               ),
               onChanged: filterApps,
             ),
