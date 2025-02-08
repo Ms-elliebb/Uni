@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../languages/app_localizations.dart';
 import '../languages/language_service.dart';
+import 'home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -32,7 +33,25 @@ class OnboardingScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text(localizations.translate('start')),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              localizations.translate('welcome'),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
+              child: Text(localizations.translate('start')),
+            ),
+          ],
+        ),
       ),
     );
   }
