@@ -2,12 +2,15 @@ package com.example.uni
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ApplicationInfo
 import android.net.Uri
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
-import java.text.SimpleDateFormat
-import java.util.*
+import android.text.format.Formatter
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "uni_app/channel"
@@ -16,57 +19,55 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
-            try {
-                when (call.method) {
-                    "getInstalledApps" -> {
-                        val apps = getInstalledApps()
-                        result.success(apps)
-                    }
-                    "uninstallApp" -> {
-                        val packageName = call.argument<String>("packageName")
-                        if (packageName != null) {
-                            uninstallApp(packageName)
-                            result.success(null)
-                        } else {
-                            result.error("INVALID_ARGUMENT", "Package name is null", null)
+            when (call.method) {
+                "getInstalledApps" -> {
+                    val apps = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
+                    val appList = apps
+                        .filter { pkg ->
+                            pkg.applicationInfo?.let { appInfo ->
+                                (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+                            } ?: false
                         }
-                    }
-                    else -> result.notImplemented()
+                        .mapNotNull { packageInfo ->
+                            packageInfo.applicationInfo?.let { appInfo ->
+                                val appSize = try {
+                                    val appFile = appInfo.sourceDir
+                                    val size = java.io.File(appFile).length()
+                                    Formatter.formatFileSize(context, size)
+                                } catch (e: Exception) {
+                                    "Unknown"
+                                }
+                                
+                                val instant = Instant.ofEpochMilli(packageInfo.lastUpdateTime)
+                                val formattedDate = DateTimeFormatter
+                                    .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                    .withZone(ZoneId.systemDefault())
+                                    .format(instant)
+                                
+                                mapOf(
+                                    "name" to packageManager.getApplicationLabel(appInfo).toString(),
+                                    "packageName" to packageInfo.packageName,
+                                    "size" to appSize,
+                                    "lastUsed" to formattedDate,
+                                    "iconPath" to ""
+                                )
+                            }
+                        }
+                    result.success(appList)
                 }
-            } catch (e: Exception) {
-                result.error("ERROR", e.message, null)
+                "uninstallApp" -> {
+                    val packageName = call.argument<String>("packageName")
+                    if (packageName != null) {
+                        val intent = Intent(Intent.ACTION_DELETE)
+                        intent.data = Uri.parse("package:$packageName")
+                        activity.startActivity(intent)
+                        result.success(null)
+                    } else {
+                        result.error("INVALID_PACKAGE", "Package name is required", null)
+                    }
+                }
+                else -> result.notImplemented()
             }
         }
-    }
-
-    private fun getInstalledApps(): List<Map<String, String>> {
-        val pm = applicationContext.packageManager
-        val apps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-        
-        return apps.map { app ->
-            try {
-                val appInfo = pm.getApplicationInfo(app.packageName, 0)
-                val appName = pm.getApplicationLabel(appInfo).toString()
-                
-                mapOf(
-                    "name" to appName,
-                    "iconPath" to "", 
-                    "size" to "10MB",
-                    "lastUsed" to dateFormat.format(Date()),
-                    "packageName" to app.packageName
-                )
-            } catch (e: Exception) {
-                null
-            }
-        }.filterNotNull()
-    }
-
-    private fun uninstallApp(packageName: String) {
-        val intent = Intent(Intent.ACTION_DELETE).apply {
-            data = Uri.parse("package:$packageName")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        startActivity(intent)
     }
 }

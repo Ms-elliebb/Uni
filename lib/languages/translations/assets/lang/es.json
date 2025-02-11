@@ -13,5 +13,7 @@
   "start": "Comenzar",
   "uninstallApps": "Desinstalar aplicaciones",
   "cancel": "Cancelar",
-  "confirm": "Confirmar"
+  "confirm": "Confirmar",
+  "viewApps": "Ver aplicaciones",
+  "selectedApps": "%d seleccionados"
 }

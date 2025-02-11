@@ -3,3 +3,5 @@ reklam
 paketle
 kaç uygulama seçildiğini göster ekranda
 0 apps uninstalled kısmı güncellenmiyor.
+bütün uygulamalar 10 mb görünüyor
+

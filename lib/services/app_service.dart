@@ -16,7 +16,7 @@ class AppService {
             name: app['name'],
             iconPath: app['iconPath'],
             size: app['size'],
-            lastUsed: DateTime.parse(app['lastUsed']),
+            lastUsed: DateTime.tryParse(app['lastUsed']) ?? DateTime.now(),
             packageName: app['packageName'],
           );
         }).toList();

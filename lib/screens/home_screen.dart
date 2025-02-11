@@ -4,6 +4,7 @@ import 'package:uni/screens/summary_screen.dart';
 import 'package:uni/services/app_service.dart';
 import 'package:uni/widgets/app_list_item.dart';
 import '../languages/app_localizations.dart';
+import 'package:uni/widgets/custom_app_bar.dart';
 import 'package:uni/theme/app_theme.dart';
 
 
@@ -96,17 +97,30 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Widget _buildSearchField(AppLocalizations localizations) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: AppTheme.searchContainerDecoration,
+      child: TextField(
+        decoration: AppTheme.searchInputDecoration.copyWith(
+          hintText: localizations.translate('searchApps'),
+        ),
+        onChanged: filterApps,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     
     return Scaffold(
-      appBar: AppBar(
-        title: Text(localizations.translate('appName')),
+      appBar: CustomAppBar(
+        selectedCount: selectedApps.length,
         actions: [
           IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: uninstallApps,
+            icon: const Icon(Icons.delete),
+            onPressed: selectedApps.isEmpty ? null : uninstallApps,
           ),
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -134,29 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: Offset(0, 5),
-                ),
-              ],
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: localizations.translate('searchApps'),
-                prefixIcon: Icon(Icons.search, color: AppTheme.lightTextColor),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              ),
-              onChanged: filterApps,
-            ),
-          ),
+          _buildSearchField(localizations),
           Expanded(
             child: ListView.builder(
               itemCount: filteredApps.length,

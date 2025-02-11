@@ -13,5 +13,7 @@
   "start": "開始",
   "uninstallApps": "アプリをアンインストール",
   "cancel": "キャンセル",
-  "confirm": "確認"
+  "confirm": "確認",
+  "viewApps": "アプリを表示",
+  "selectedApps": "%d 個選択"
 }

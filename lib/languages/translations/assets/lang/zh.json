@@ -13,5 +13,7 @@
   "start": "开始",
   "uninstallApps": "卸载应用",
   "cancel": "取消",
-  "confirm": "确认"
+  "confirm": "确认",
+  "viewApps": "查看应用",
+  "selectedApps": "已选择 %d 个"
 }
