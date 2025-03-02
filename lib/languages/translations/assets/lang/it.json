@@ -15,5 +15,19 @@
   "cancel": "Annulla",
   "confirm": "Conferma",
   "viewApps": "Visualizza applicazioni",
-  "selectedApps": "%d selezionati"
+  "selectedApps": "%d selezionati",
+  "selectLanguage": "Seleziona lingua",
+  "next": "Avanti",
+  "optimizePerformance": "Ottimizza prestazioni",
+  "letsStart": "Iniziamo",
+  "successTitle": "Successo!",
+  "completedTitle": "Operazione completata",
+  "failedAppsTitle": "Impossibile disinstallare le applicazioni:",
+  "successMessage": "Le applicazioni selezionate sono state disinstallate con successo. Il tuo dispositivo ha ora più spazio libero.",
+  "partialSuccessMessage": "Operazione completata. Alcune applicazioni non possono essere disinstallate, controlla i permessi di sistema.",
+  "backToHome": "Torna alla home",
+  "onboardingDesc1": "Il modo più semplice per mantenere il tuo dispositivo pulito e organizzato. Disinstalla facilmente le app inutilizzate.",
+  "onboardingDesc2": "Ottimizza le prestazioni e lo spazio di archiviazione del tuo dispositivo rimuovendo le applicazioni non necessarie.",
+  "onboardingDesc3": "Inizia a gestire le app sul tuo dispositivo subito e ottieni una migliore esperienza utente.",
+  "lastUsed": "Ultimo utilizzo"
 }

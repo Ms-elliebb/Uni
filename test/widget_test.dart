@@ -59,6 +59,7 @@ void main() {
             supportedLocales: const [
               Locale('en'), Locale('fr'), Locale('de'),
               Locale('it'), Locale('es'), Locale('zh'), Locale('ja'),
+              Locale('tr'),
             ],
             home: const OnboardingScreen(),
           ),
@@ -70,7 +71,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tüm dil seçeneklerini kontrol et
-      final languages = ['English', 'Français', 'Deutsch', 'Italiano', 'Español', '中文', '日本語'];
+      final languages = ['English', 'Français', 'Deutsch', 'Italiano', 'Español', '中文', '日本語', 'Türkçe'];
       for (var language in languages) {
         expect(find.text(language), findsOneWidget);
       }

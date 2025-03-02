@@ -15,5 +15,19 @@
   "cancel": "Abbrechen",
   "confirm": "Bestätigen",
   "viewApps": "Apps anzeigen",
-  "selectedApps": "%d ausgewählt"
+  "selectedApps": "%d ausgewählt",
+  "selectLanguage": "Sprache auswählen",
+  "next": "Weiter",
+  "optimizePerformance": "Leistung optimieren",
+  "letsStart": "Los geht's",
+  "successTitle": "Erfolg!",
+  "completedTitle": "Vorgang abgeschlossen",
+  "failedAppsTitle": "Deinstallation fehlgeschlagen:",
+  "successMessage": "Ausgewählte Apps wurden erfolgreich deinstalliert. Ihr Gerät hat jetzt mehr freien Speicherplatz.",
+  "partialSuccessMessage": "Vorgang abgeschlossen. Einige Apps konnten nicht deinstalliert werden, überprüfen Sie die Systemberechtigungen.",
+  "backToHome": "Zurück zur Startseite",
+  "onboardingDesc1": "Der einfachste Weg, Ihr Gerät sauber und organisiert zu halten. Deinstallieren Sie ungenutzte Apps ganz einfach.",
+  "onboardingDesc2": "Optimieren Sie die Leistung und den Speicherplatz Ihres Geräts, indem Sie unnötige Anwendungen entfernen.",
+  "onboardingDesc3": "Beginnen Sie jetzt mit der Verwaltung von Apps auf Ihrem Gerät und erhalten Sie ein besseres Benutzererlebnis.",
+  "lastUsed": "Zuletzt verwendet"
 }

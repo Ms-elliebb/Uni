@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF2962FF);   // Canlı Mavi
-  static const Color secondary = Color(0xFFFF5252); // Canlı Kırmızı
-  static const Color accent = Color(0xFF00BFA5);    // Canlı Turkuaz
-  static const Color lightBackground = Color(0xFFF5F5F5); // Açık Gri
-  static const Color darkBackground = Color(0xFF212121);  // Koyu Gri
-  static const Color lightText = Color(0xFF757575);       // Orta Gri
-  static const Color darkText = Color(0xFFFAFAFA);        // Neredeyse Beyaz
+  // Ana renkler - daha modern ve profesyonel bir renk paleti
+  static const Color primary = Color(0xFF3F51B5);   // Indigo
+  static const Color secondary = Color(0xFF5C6BC0); // Daha açık indigo
+  static const Color accent = Color(0xFF00BCD4);    // Cyan
+  
+  // Arka plan renkleri
+  static const Color lightBackground = Color(0xFFF8F9FA); // Çok açık gri
+  static const Color darkBackground = Color(0xFF263238);  // Koyu mavi-gri
+  
+  // Metin renkleri
+  static const Color lightText = Color(0xFF546E7A);       // Mavi-gri
+  static const Color darkText = Color(0xFFECEFF1);        // Çok açık mavi-gri
+  
+  // Gradient renkleri
+  static const Color gradientStart = Color(0xFF3949AB);   // Koyu indigo
+  static const Color gradientEnd = Color(0xFF5C6BC0);     // Açık indigo
+  
+  // Vurgu renkleri
+  static const Color success = Color(0xFF4CAF50);         // Yeşil
+  static const Color warning = Color(0xFFFFC107);         // Amber
+  static const Color error = Color(0xFFF44336);           // Kırmızı
+  static const Color info = Color(0xFF2196F3);            // Mavi
 } 

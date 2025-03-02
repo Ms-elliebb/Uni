@@ -15,5 +15,19 @@
   "cancel": "キャンセル",
   "confirm": "確認",
   "viewApps": "アプリを表示",
-  "selectedApps": "%d 個選択"
+  "selectedApps": "%d 個選択",
+  "selectLanguage": "言語を選択",
+  "next": "次へ",
+  "optimizePerformance": "パフォーマンスを最適化",
+  "letsStart": "始めましょう",
+  "successTitle": "成功！",
+  "completedTitle": "操作完了",
+  "failedAppsTitle": "アンインストール失敗したアプリ：",
+  "successMessage": "選択したアプリが正常にアンインストールされました。デバイスの空き容量が増えました。",
+  "partialSuccessMessage": "操作が完了しました。一部のアプリはアンインストールできませんでした。システム権限を確認してください。",
+  "backToHome": "ホームに戻る",
+  "onboardingDesc1": "デバイスをクリーンで整理された状態に保つ最も簡単な方法です。使用していないアプリを簡単にアンインストールできます。",
+  "onboardingDesc2": "不要なアプリケーションを削除して、デバイスのパフォーマンスとストレージを最適化します。",
+  "onboardingDesc3": "今すぐデバイス上のアプリの管理を開始し、より良いユーザーエクスペリエンスを得ましょう。",
+  "lastUsed": "最終使用"
 }

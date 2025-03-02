@@ -1,0 +1,2 @@
+/Users/elifbeyzabelhan/flutter/Uni/uni/android/app/.cxx/Debug/4wc1s3sg/x86/CMakeFiles/edit_cache.dir
+/Users/elifbeyzabelhan/flutter/Uni/uni/android/app/.cxx/Debug/4wc1s3sg/x86/CMakeFiles/rebuild_cache.dir

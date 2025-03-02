@@ -6,14 +6,10 @@ import 'languages/language_service.dart';
 import 'languages/app_localizations.dart';
 import 'screens/onboarding_screen.dart';
 import 'utils/theme_provider.dart';
-import 'services/ad_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  
-  // AdMob'u başlat
-  await AdService.initialize();
   
   runApp(
     MultiProvider(
@@ -45,6 +41,7 @@ class MyApp extends StatelessWidget {
             Locale('es'),
             Locale('zh'),
             Locale('ja'),
+            Locale('tr'),
           ],
           localizationsDelegates:const  [
             AppLocalizationsDelegate(),

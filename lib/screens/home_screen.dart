@@ -50,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void uninstallApps() async {
     final appService = AppService();
     final failedUninstalls = <String>[];
+    final int totalSelected = selectedApps.length;
+    
     for (final app in selectedApps) {
       try {
         await appService.uninstallApp(app.packageName);
@@ -57,14 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
         failedUninstalls.add(app.name);
       }
     }
+    
     setState(() {
       selectedApps.clear();
     });
+    
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => SummaryScreen(
-          uninstalledCount: selectedApps.length - failedUninstalls.length,
+          uninstalledCount: totalSelected - failedUninstalls.length,
           failedUninstalls: failedUninstalls,
         ),
       ),
@@ -114,55 +118,60 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     
-    return Scaffold(
-      appBar: CustomAppBar(
-        selectedCount: selectedApps.length,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: selectedApps.isEmpty ? null : uninstallApps,
-          ),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              setState(() {
-                sortBy = value;
-                sortApps();
-              });
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'name',
-                child: Text(localizations.translate('sortByName')),
-              ),
-              PopupMenuItem(
-                value: 'size',
-                child: Text(localizations.translate('sortBySize')),
-              ),
-              PopupMenuItem(
-                value: 'lastUsed',
-                child: Text(localizations.translate('sortByLastUsed')),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          _buildSearchField(localizations),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredApps.length,
-              itemBuilder: (context, index) {
-                final app = filteredApps[index];
-                return AppListItem(
-                  app: app,
-                  isSelected: selectedApps.contains(app),
-                  onTap: () => toggleSelection(app),
-                );
-              },
+    return WillPopScope(
+      onWillPop: () async {
+        return true; // Uygulamadan çıkılmasına izin ver
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          selectedCount: selectedApps.length,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: selectedApps.isEmpty ? null : uninstallApps,
             ),
-          ),
-        ],
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                setState(() {
+                  sortBy = value;
+                  sortApps();
+                });
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'name',
+                  child: Text(localizations.translate('sortByName')),
+                ),
+                PopupMenuItem(
+                  value: 'size',
+                  child: Text(localizations.translate('sortBySize')),
+                ),
+                PopupMenuItem(
+                  value: 'lastUsed',
+                  child: Text(localizations.translate('sortByLastUsed')),
+                ),
+              ],
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            _buildSearchField(localizations),
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredApps.length,
+                itemBuilder: (context, index) {
+                  final app = filteredApps[index];
+                  return AppListItem(
+                    app: app,
+                    isSelected: selectedApps.contains(app),
+                    onTap: () => toggleSelection(app),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

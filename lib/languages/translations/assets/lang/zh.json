@@ -15,5 +15,19 @@
   "cancel": "取消",
   "confirm": "确认",
   "viewApps": "查看应用",
-  "selectedApps": "已选择 %d 个"
+  "selectedApps": "已选择 %d 个",
+  "selectLanguage": "选择语言",
+  "next": "下一步",
+  "optimizePerformance": "优化性能",
+  "letsStart": "让我们开始",
+  "successTitle": "成功！",
+  "completedTitle": "操作完成",
+  "failedAppsTitle": "卸载失败的应用：",
+  "successMessage": "已成功卸载所选应用。您的设备现在有更多可用空间。",
+  "partialSuccessMessage": "操作完成。某些应用无法卸载，请检查系统权限。",
+  "backToHome": "返回主页",
+  "onboardingDesc1": "保持设备整洁有序的最简单方法。轻松卸载未使用的应用。",
+  "onboardingDesc2": "通过删除不必要的应用程序来优化设备的性能和存储空间。",
+  "onboardingDesc3": "立即开始管理设备上的应用，获得更好的用户体验。",
+  "lastUsed": "最后使用"
 }
