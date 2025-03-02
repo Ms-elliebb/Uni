@@ -5,17 +5,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'languages/language_service.dart';
 import 'languages/app_localizations.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/splash_screen.dart';
 import 'utils/theme_provider.dart';
+import 'services/ad_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
+  
+  // AdMob'u başlat
+  final adService = AdService();
+  try {
+    await adService.initialize();
+  } catch (e) {
+    debugPrint('AdMob başlatılırken hata: $e');
+  }
   
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LanguageService(prefs)),
+        Provider<AdService>.value(value: adService),
       ],
       child: MyApp(),
     ),
@@ -49,7 +60,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: OnboardingScreen(),
+          home: SplashScreen(nextScreen: OnboardingScreen()),
         );
       },
     );

@@ -22,5 +22,6 @@ class AppColors {
   static const Color success = Color(0xFF4CAF50);         // Yeşil
   static const Color warning = Color(0xFFFFC107);         // Amber
   static const Color error = Color(0xFFF44336);           // Kırmızı
+  static const Color danger = Color(0xFFF44336);          // Kırmızı (error ile aynı)
   static const Color info = Color(0xFF2196F3);            // Mavi
 } 

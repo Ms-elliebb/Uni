@@ -4,6 +4,8 @@ import '../languages/app_localizations.dart';
 import '../languages/language_service.dart';
 import '../theme/app_colors.dart';
 import 'home_screen.dart';
+import '../widgets/banner_ad_widget.dart';
+import '../services/ad_service.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -159,19 +161,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     },
                     children: [
                       _buildPage(
-                        icon: Icons.cleaning_services_rounded,
-                        title: localizations.translate('welcome'),
-                        description: localizations.translate('onboardingDesc1'),
+                        context,
+                        Icons.cleaning_services_rounded,
+                        localizations.translate('optimizePerformance'),
+                        localizations.translate('onboardingDesc1'),
                       ),
                       _buildPage(
-                        icon: Icons.speed_rounded,
-                        title: localizations.translate('optimizePerformance'),
-                        description: localizations.translate('onboardingDesc2'),
+                        context,
+                        Icons.delete_sweep_rounded,
+                        localizations.translate('uninstallApps'),
+                        localizations.translate('onboardingDesc2'),
                       ),
                       _buildPage(
-                        icon: Icons.phone_android_rounded,
-                        title: localizations.translate('letsStart'),
-                        description: localizations.translate('onboardingDesc3'),
+                        context,
+                        Icons.phone_android_rounded,
+                        localizations.translate('letsStart'),
+                        localizations.translate('onboardingDesc3'),
                       ),
                     ],
                   ),
@@ -194,6 +199,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     ],
                   ),
                 ),
+                
+                // Banner reklamı ekle
+                const BannerAdWidget(),
               ],
             ),
           ),
@@ -296,11 +304,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
     );
   }
   
-  Widget _buildPage({
-    required IconData icon,
-    required String title,
-    required String description,
-  }) {
+  Widget _buildPage(BuildContext context, IconData icon, String title, String description) {
     return FadeTransition(
       opacity: _fadeAnimation,
       child: SlideTransition(
@@ -325,8 +329,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 ),
                 child: Icon(
                   icon,
-                  size: 80,
                   color: AppColors.primary,
+                  size: 100,
                 ),
               ),
               const SizedBox(height: 40),

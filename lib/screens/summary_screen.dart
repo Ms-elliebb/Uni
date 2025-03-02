@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../languages/app_localizations.dart';
 import '../theme/app_colors.dart';
 import 'home_screen.dart';
+import 'package:provider/provider.dart';
+import '../services/ad_service.dart';
 
 class SummaryScreen extends StatefulWidget {
   final int uninstalledCount;
@@ -45,6 +47,21 @@ class _SummaryScreenState extends State<SummaryScreen> with SingleTickerProvider
     );
     
     _animationController.forward();
+    
+    // Interstitial reklamı initState içinde yüklemeyelim
+  }
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    
+    // Interstitial reklamı didChangeDependencies içinde yükleyelim
+    try {
+      final adService = Provider.of<AdService>(context, listen: false);
+      adService.loadInterstitialAd();
+    } catch (e) {
+      debugPrint('Interstitial reklam yüklenirken hata: $e');
+    }
   }
   
   @override
@@ -291,7 +308,15 @@ class _SummaryScreenState extends State<SummaryScreen> with SingleTickerProvider
                     opacity: _fadeAnimation,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        // Interstitial reklamı göster ve sonra Home ekranına dön
+                        try {
+                          final adService = Provider.of<AdService>(context, listen: false);
+                          adService.showInterstitialAd();
+                        } catch (e) {
+                          debugPrint('Interstitial reklam gösterilirken hata: $e');
+                        } finally {
+                          Navigator.pop(context);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
