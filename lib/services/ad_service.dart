@@ -10,6 +10,9 @@ class AdService {
   
   bool _isInitialized = false;
   
+  // Reklamların görünürlüğünü kontrol eden bayrak
+  bool showAds = true;
+  
   // Test reklamları için ID'ler
   static const String _testBannerAdUnitId = 'ca-app-pub-3940256099942544/6300978111';
   static const String _testInterstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
@@ -103,6 +106,12 @@ class AdService {
       return;
     }
     
+    // Reklamlar gizlenmişse gösterme
+    if (!showAds) {
+      debugPrint('Reklamlar gizli olduğu için interstitial reklam gösterilmedi.');
+      return;
+    }
+    
     if (_isInterstitialAdReady && _interstitialAd != null) {
       try {
         _interstitialAd!.show();
@@ -118,5 +127,11 @@ class AdService {
   // Kaynakları temizle
   void dispose() {
     _interstitialAd?.dispose();
+  }
+  
+  // Reklamların görünürlüğünü değiştir
+  void setAdsVisibility(bool visible) {
+    showAds = visible;
+    debugPrint('Reklamların görünürlüğü: ${visible ? 'Açık' : 'Kapalı'}');
   }
 } 

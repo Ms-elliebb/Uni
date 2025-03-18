@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:uni/models/app_model.dart';
 import 'package:uni/screens/summary_screen.dart';
 import 'package:uni/services/app_service.dart';
 import 'package:uni/widgets/app_list_item.dart';
 import '../languages/app_localizations.dart';
-import 'package:uni/widgets/custom_app_bar.dart';
-import 'package:uni/theme/app_theme.dart';
 import 'package:uni/widgets/banner_ad_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:uni/services/ad_service.dart';
 import 'package:uni/theme/app_colors.dart';
 
 
@@ -41,6 +38,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
     
     loadApps();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    
+    // Ekrana geri dönüldüğünde uygulama listesini güncelleyelim
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // İlk yükleme sırasında loadApps zaten initState'te çağrılıyor
+      // Bu yüzden sadece _isLoading false ise (ilk yüklemeden sonra) yeniden yükleyelim
+      if (!_isLoading && mounted) {
+        loadApps();
+      }
+    });
   }
 
   @override
@@ -96,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       selectedApps.clear();
     });
     
-    Navigator.push(
+    // SummaryScreen'den dönüldüğünde uygulamaları yeniden yükleyelim
+    final shouldRefresh = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => SummaryScreen(
@@ -105,6 +117,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ),
       ),
     );
+    
+    // SummaryScreen'den true değeri ile dönüldüğünde uygulama listesini yenileyelim
+    if (shouldRefresh == true) {
+      loadApps();
+    }
   }
 
   void filterApps(String query) {

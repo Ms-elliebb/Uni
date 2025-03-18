@@ -55,6 +55,13 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // AdService'den showAds bayrağını kontrol et
+    final adService = Provider.of<AdService>(context, listen: false);
+    if (!adService.showAds) {
+      // Reklamlar gizlendiğinde boş bir container döndür
+      return const SizedBox.shrink();
+    }
+    
     if (_bannerAd == null || !_isAdLoaded) {
       return Container(
         height: 50,

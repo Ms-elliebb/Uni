@@ -8,15 +8,21 @@ import 'screens/onboarding_screen.dart';
 import 'screens/splash_screen.dart';
 import 'utils/theme_provider.dart';
 import 'services/ad_service.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   
+  // Onboarding ekranının gösterilip gösterilmeyeceğini kontrol et
+  final bool showOnboarding = prefs.getBool('showOnboarding') ?? true;
+  
   // AdMob'u başlat
   final adService = AdService();
   try {
     await adService.initialize();
+    // Reklamları görünür hale getir
+    adService.setAdsVisibility(true);
   } catch (e) {
     debugPrint('AdMob başlatılırken hata: $e');
   }
@@ -27,19 +33,28 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LanguageService(prefs)),
         Provider<AdService>.value(value: adService),
+        Provider<SharedPreferences>.value(value: prefs),
       ],
-      child: MyApp(),
+      child: MyApp(showOnboarding: showOnboarding),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  final bool showOnboarding;
+  
+  const MyApp({Key? key, required this.showOnboarding}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Consumer2<ThemeProvider, LanguageService>(
       builder: (context, themeProvider, languageService, child) {
+        // İlk başlatmada onboarding gösterilecek, sonrakilerde ana sayfa
+        final Widget initialScreen = showOnboarding ? OnboardingScreen() : HomeScreen();
+        
         return MaterialApp(
           title: 'Uni App',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
           themeMode: themeProvider.themeMode,
@@ -60,7 +75,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: SplashScreen(nextScreen: OnboardingScreen()),
+          home: SplashScreen(nextScreen: initialScreen),
         );
       },
     );

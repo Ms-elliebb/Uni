@@ -315,7 +315,9 @@ class _SummaryScreenState extends State<SummaryScreen> with SingleTickerProvider
                         } catch (e) {
                           debugPrint('Interstitial reklam gösterilirken hata: $e');
                         } finally {
-                          Navigator.pop(context);
+                          // Ana sayfaya dönerken uygulama listesini yenilemek için
+                          // refresh: true şeklinde bir sonuç döndürüyoruz
+                          Navigator.pop(context, true);
                         }
                       },
                       style: ElevatedButton.styleFrom(

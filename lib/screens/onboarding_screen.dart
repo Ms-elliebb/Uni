@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../languages/app_localizations.dart';
 import '../languages/language_service.dart';
 import '../theme/app_colors.dart';
@@ -385,6 +386,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
             curve: Curves.easeInOut,
           );
         } else {
+          // Onboarding'in tamamlandığını SharedPreferences'a kaydet
+          final prefs = Provider.of<SharedPreferences>(context, listen: false);
+          prefs.setBool('showOnboarding', false);
+          
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
