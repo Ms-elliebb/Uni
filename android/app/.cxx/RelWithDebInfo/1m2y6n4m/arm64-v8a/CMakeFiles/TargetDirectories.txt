@@ -1,0 +1,2 @@
+/Users/elifbeyzabelhan/projects/Uni/uni/android/app/.cxx/RelWithDebInfo/1m2y6n4m/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/elifbeyzabelhan/projects/Uni/uni/android/app/.cxx/RelWithDebInfo/1m2y6n4m/arm64-v8a/CMakeFiles/rebuild_cache.dir

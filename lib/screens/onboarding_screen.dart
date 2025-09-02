@@ -202,7 +202,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 ),
                 
                 // Banner reklamı ekle
-                const BannerAdWidget(),
+                // const BannerAdWidget(),
               ],
             ),
           ),
